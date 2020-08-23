@@ -24,7 +24,7 @@ beforeAll(async () => {
   const user = await User.create({
     email,
     password,
-    confirmed: true
+    confirmed: true,
   }).save();
   userId = user.id;
 });
@@ -50,10 +50,10 @@ describe("forgot password", () => {
         login: [
           {
             path: "email",
-            message: forgotPasswordLockedError
-          }
-        ]
-      }
+            message: forgotPasswordLockedError,
+          },
+        ],
+      },
     });
 
     // try changing to a password that's too short
@@ -62,16 +62,16 @@ describe("forgot password", () => {
         forgotPasswordChange: [
           {
             path: "newPassword",
-            message: passwordNotLongEnough
-          }
-        ]
-      }
+            message: passwordNotLongEnough,
+          },
+        ],
+      },
     });
 
     const response = await client.forgotPasswordChange(newPassword, key);
 
     expect(response.data).toEqual({
-      forgotPasswordChange: null
+      forgotPasswordChange: null,
     });
 
     // make sure redis key expires after password change
@@ -82,16 +82,16 @@ describe("forgot password", () => {
         forgotPasswordChange: [
           {
             path: "key",
-            message: expiredKeyError
-          }
-        ]
-      }
+            message: expiredKeyError,
+          },
+        ],
+      },
     });
 
     expect(await client.login(email, newPassword)).toEqual({
       data: {
-        login: null
-      }
+        login: null,
+      },
     });
   });
 });
