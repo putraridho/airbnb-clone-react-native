@@ -1,3 +1,13 @@
 import React from "react";
+import RegisterView from "./ui/RegisterView";
 
-export const RegisterConnector = () => <h1>register page</h1>;
+export default function RegisterConnector() {
+  return (
+    <RegisterView
+      submit={async (values: any) => {
+        console.log(values);
+        return null;
+      }}
+    />
+  );
+}
