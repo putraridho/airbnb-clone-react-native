@@ -1,5 +1,5 @@
 {
-  "name": "graphql-ts-server-boilerplate",
+  "name": "@airbnb-clone/server",
   "version": "0.0.1",
   "description": "Awesome project developed with TypeORM.",
   "devDependencies": {
@@ -29,6 +29,7 @@
     "typescript": "3.7.2"
   },
   "dependencies": {
+    "@airbnb-clone/common": "1.0.0",
     "@gql2ts/from-schema": "^1.8.0",
     "@types/express": "^4.11.1",
     "axios": "^0.18.0",

@@ -2,6 +2,7 @@ import React, { ReactElement } from "react";
 import { Form, Input, Button } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { withFormik, FormikErrors, FormikValues, FormikProps } from "formik";
+import { validUserSchema } from "@airbnb-clone/common";
 
 interface FormValues {
   email: string;
@@ -13,7 +14,15 @@ interface Props {
 }
 
 function RegisterView(props: FormikProps<FormValues> & Props): ReactElement {
-  const { values, handleChange, handleBlur, handleSubmit } = props;
+  const {
+    values,
+    handleChange,
+    handleBlur,
+    handleSubmit,
+    touched,
+    errors,
+  } = props;
+
   return (
     <form onSubmit={handleSubmit}>
       <div
@@ -27,15 +36,11 @@ function RegisterView(props: FormikProps<FormValues> & Props): ReactElement {
         }}
       >
         <Form.Item
-          name="email"
-          rules={[
-            {
-              required: true,
-              message: "Please input your Email!",
-            },
-          ]}
+          help={touched.email && errors.email}
+          validateStatus={touched.email && errors.email ? "error" : "success"}
         >
           <Input
+            name="email"
             prefix={<UserOutlined />}
             placeholder="Email"
             value={values.email}
@@ -44,15 +49,13 @@ function RegisterView(props: FormikProps<FormValues> & Props): ReactElement {
           />
         </Form.Item>
         <Form.Item
-          name="password"
-          rules={[
-            {
-              required: true,
-              message: "Please input your Password!",
-            },
-          ]}
+          help={touched.password && errors.password}
+          validateStatus={
+            touched.password && errors.password ? "error" : "success"
+          }
         >
           <Input
+            name="password"
             prefix={<LockOutlined />}
             type="password"
             placeholder="Password"
@@ -95,11 +98,12 @@ function RegisterView(props: FormikProps<FormValues> & Props): ReactElement {
 }
 
 export default withFormik<Props, FormValues>({
+  validationSchema: validUserSchema,
   mapPropsToValues: () => ({
     email: "",
     password: "",
   }),
-  handleSubmit: async (values, { props, setErrors, setSubmitting }) => {
+  handleSubmit: async (values, { props, setErrors }) => {
     const errors = await props.submit(values);
     if (errors) {
       setErrors(errors);
