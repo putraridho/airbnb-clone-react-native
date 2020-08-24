@@ -1,7 +1,8 @@
 import React, { ReactElement } from "react";
-import { Form, Input, Button, Icon } from "antd";
+import { Form, Input, Button } from "antd";
+import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { withFormik, FormikErrors, FormikValues, FormikProps } from "formik";
-import * as yup from "yup";
+import { validUserSchema } from "@airbnb-clone/common";
 
 interface FormValues {
   email: string;
@@ -21,6 +22,7 @@ function RegisterView(props: FormikProps<FormValues> & Props): ReactElement {
     touched,
     errors,
   } = props;
+
   return (
     <form onSubmit={handleSubmit}>
       <div
@@ -33,20 +35,28 @@ function RegisterView(props: FormikProps<FormValues> & Props): ReactElement {
           padding: 20,
         }}
       >
-        <Form.Item help={touched.email && errors.email}>
+        <Form.Item
+          help={touched.email && errors.email}
+          validateStatus={touched.email && errors.email ? "error" : "success"}
+        >
           <Input
             name="email"
-            prefix={<Icon type="user" style={{ color: "rgba(0,0,0,.25" }} />}
+            prefix={<UserOutlined />}
             placeholder="Email"
             value={values.email}
             onChange={handleChange}
             onBlur={handleBlur}
           />
         </Form.Item>
-        <Form.Item help={touched.password && errors.password}>
+        <Form.Item
+          help={touched.password && errors.password}
+          validateStatus={
+            touched.password && errors.password ? "error" : "success"
+          }
+        >
           <Input
             name="password"
-            prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,.25" }} />}
+            prefix={<LockOutlined />}
             type="password"
             placeholder="Password"
             value={values.password}
@@ -87,22 +97,8 @@ function RegisterView(props: FormikProps<FormValues> & Props): ReactElement {
   );
 }
 
-const emailNotLongEnough = "email must be at least 3 characters";
-const passwordNotLongEnough = "password must be at least 3 characters";
-const invalidEmail = "email must be a valid email";
-
-const validationSchema = yup.object().shape({
-  email: yup
-    .string()
-    .min(3, emailNotLongEnough)
-    .max(255)
-    .email(invalidEmail)
-    .required(),
-  password: yup.string().min(3, passwordNotLongEnough).max(255).required(),
-});
-
 export default withFormik<Props, FormValues>({
-  validationSchema,
+  validationSchema: validUserSchema,
   mapPropsToValues: () => ({
     email: "",
     password: "",

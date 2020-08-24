@@ -1,5 +1,6 @@
 import * as yup from "yup";
 import * as bcrypt from "bcryptjs";
+import { registerPasswordValidation } from "@airbnb-clone/common";
 
 import { ResolverMap } from "../../../types/graphql-utils";
 import { forgotPasswordLockAccount } from "../../../utils/forgotPasswordLockAccount";
@@ -7,14 +8,13 @@ import { createForgotPasswordLink } from "../../../utils/createForgotPasswordLin
 import { User } from "../../../entity/User";
 import { userNotFoundError, expiredKeyError } from "./errorMessages";
 import { forgotPasswordPrefix } from "../../../constants";
-import { registerPasswordValidation } from "../../../yupSchemas";
 import { formatYupError } from "../../../utils/formatYupError";
 
 // 20 minutes
 // lock account
 
 const schema = yup.object().shape({
-  newPassword: registerPasswordValidation
+  newPassword: registerPasswordValidation,
 });
 
 export const resolvers: ResolverMap = {
@@ -29,8 +29,8 @@ export const resolvers: ResolverMap = {
         return [
           {
             path: "email",
-            message: userNotFoundError
-          }
+            message: userNotFoundError,
+          },
         ];
       }
 
@@ -52,8 +52,8 @@ export const resolvers: ResolverMap = {
         return [
           {
             path: "key",
-            message: expiredKeyError
-          }
+            message: expiredKeyError,
+          },
         ];
       }
 
@@ -69,7 +69,7 @@ export const resolvers: ResolverMap = {
         { id: userId },
         {
           forgotPasswordLocked: false,
-          password: hashedPassword
+          password: hashedPassword,
         }
       );
 
@@ -78,6 +78,6 @@ export const resolvers: ResolverMap = {
       await Promise.all([updatePromise, deleteKeyPromise]);
 
       return null;
-    }
-  }
+    },
+  },
 };
