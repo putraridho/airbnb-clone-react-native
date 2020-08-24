@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react";
-import { Form, Input, Button } from "antd";
-import { UserOutlined, LockOutlined } from "@ant-design/icons";
+import { Form, Input, Button, Icon } from "antd";
 import { withFormik, FormikErrors, FormikValues, FormikProps } from "formik";
+import * as yup from "yup";
 
 interface FormValues {
   email: string;
@@ -13,7 +13,14 @@ interface Props {
 }
 
 function RegisterView(props: FormikProps<FormValues> & Props): ReactElement {
-  const { values, handleChange, handleBlur, handleSubmit } = props;
+  const {
+    values,
+    handleChange,
+    handleBlur,
+    handleSubmit,
+    touched,
+    errors,
+  } = props;
   return (
     <form onSubmit={handleSubmit}>
       <div
@@ -26,34 +33,20 @@ function RegisterView(props: FormikProps<FormValues> & Props): ReactElement {
           padding: 20,
         }}
       >
-        <Form.Item
-          name="email"
-          rules={[
-            {
-              required: true,
-              message: "Please input your Email!",
-            },
-          ]}
-        >
+        <Form.Item help={touched.email && errors.email}>
           <Input
-            prefix={<UserOutlined />}
+            name="email"
+            prefix={<Icon type="user" style={{ color: "rgba(0,0,0,.25" }} />}
             placeholder="Email"
             value={values.email}
             onChange={handleChange}
             onBlur={handleBlur}
           />
         </Form.Item>
-        <Form.Item
-          name="password"
-          rules={[
-            {
-              required: true,
-              message: "Please input your Password!",
-            },
-          ]}
-        >
+        <Form.Item help={touched.password && errors.password}>
           <Input
-            prefix={<LockOutlined />}
+            name="password"
+            prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,.25" }} />}
             type="password"
             placeholder="Password"
             value={values.password}
@@ -94,12 +87,27 @@ function RegisterView(props: FormikProps<FormValues> & Props): ReactElement {
   );
 }
 
+const emailNotLongEnough = "email must be at least 3 characters";
+const passwordNotLongEnough = "password must be at least 3 characters";
+const invalidEmail = "email must be a valid email";
+
+const validationSchema = yup.object().shape({
+  email: yup
+    .string()
+    .min(3, emailNotLongEnough)
+    .max(255)
+    .email(invalidEmail)
+    .required(),
+  password: yup.string().min(3, passwordNotLongEnough).max(255).required(),
+});
+
 export default withFormik<Props, FormValues>({
+  validationSchema,
   mapPropsToValues: () => ({
     email: "",
     password: "",
   }),
-  handleSubmit: async (values, { props, setErrors, setSubmitting }) => {
+  handleSubmit: async (values, { props, setErrors }) => {
     const errors = await props.submit(values);
     if (errors) {
       setErrors(errors);
