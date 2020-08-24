@@ -1,8 +1,21 @@
-import React, { ReactElement } from "react";
-import { Form, Input, Button } from "antd";
+import React from "react";
+import * as Antd from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
-import { withFormik, FormikErrors, FormikValues, FormikProps } from "formik";
+import {
+  withFormik,
+  FormikErrors,
+  FormikValues,
+  FormikProps,
+  Field,
+  Form,
+} from "formik";
 import { validUserSchema } from "@airbnb-clone/common";
+import InputField from "../../shared/InputField";
+
+const {
+  Form: { Item: FormItem },
+  Button,
+} = Antd;
 
 interface FormValues {
   email: string;
@@ -13,18 +26,9 @@ interface Props {
   submit: (values: FormikValues) => Promise<FormikErrors<FormikValues> | null>;
 }
 
-function RegisterView(props: FormikProps<FormValues> & Props): ReactElement {
-  const {
-    values,
-    handleChange,
-    handleBlur,
-    handleSubmit,
-    touched,
-    errors,
-  } = props;
-
+const RegisterView: React.FC<FormikProps<FormValues> & Props> = (props) => {
   return (
-    <form onSubmit={handleSubmit}>
+    <Form>
       <div
         style={{
           display: "block",
@@ -35,40 +39,24 @@ function RegisterView(props: FormikProps<FormValues> & Props): ReactElement {
           padding: 20,
         }}
       >
-        <Form.Item
-          help={touched.email && errors.email}
-          validateStatus={touched.email && errors.email ? "error" : "success"}
-        >
-          <Input
-            name="email"
-            prefix={<UserOutlined />}
-            placeholder="Email"
-            value={values.email}
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-        </Form.Item>
-        <Form.Item
-          help={touched.password && errors.password}
-          validateStatus={
-            touched.password && errors.password ? "error" : "success"
-          }
-        >
-          <Input
-            name="password"
-            prefix={<LockOutlined />}
-            type="password"
-            placeholder="Password"
-            value={values.password}
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-        </Form.Item>
-        <Form.Item>
+        <Field
+          name="email"
+          prefix={<UserOutlined />}
+          placeholder="Email"
+          component={InputField}
+        />
+        <Field
+          name="password"
+          prefix={<LockOutlined />}
+          type="password"
+          placeholder="Password"
+          component={InputField}
+        />
+        <FormItem>
           <a href="https://google.com">Forgot password</a>
-        </Form.Item>
+        </FormItem>
 
-        <Form.Item
+        <FormItem
           style={{
             marginBottom: 0,
           }}
@@ -91,11 +79,11 @@ function RegisterView(props: FormikProps<FormValues> & Props): ReactElement {
           >
             log in now!
           </a>
-        </Form.Item>
+        </FormItem>
       </div>
-    </form>
+    </Form>
   );
-}
+};
 
 export default withFormik<Props, FormValues>({
   validationSchema: validUserSchema,
