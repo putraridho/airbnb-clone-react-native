@@ -91,8 +91,8 @@ export default withFormik<Props, FormValues>({
     email: "",
     password: "",
   }),
-  handleSubmit: async (values, { props, setErrors }) => {
-    const errors = await props.submit(values);
+  handleSubmit: async (values, { props: { submit }, setErrors }) => {
+    const errors = await submit(values);
     if (errors) {
       setErrors(errors);
     }
