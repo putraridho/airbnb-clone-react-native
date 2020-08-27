@@ -20,5 +20,5 @@
     "skipLibCheck": true,
     "declaration": true
   },
-  "include": ["src"]
+  "include": ["src", "types.ts"]
 }

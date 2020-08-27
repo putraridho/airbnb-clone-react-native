@@ -1,14 +1,7 @@
 import React from "react";
 import * as Antd from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
-import {
-  withFormik,
-  FormikErrors,
-  FormikValues,
-  FormikProps,
-  Field,
-  Form,
-} from "formik";
+import { withFormik, FormikErrors, FormikProps, Field, Form } from "formik";
 import { validUserSchema } from "@airbnb-clone/common";
 import InputField from "../../shared/InputField";
 
@@ -23,7 +16,7 @@ interface FormValues {
 }
 
 interface Props {
-  submit: (values: FormikValues) => Promise<FormikErrors<FormikValues> | null>;
+  submit: (values: FormValues) => Promise<FormikErrors<FormValues> | null>;
 }
 
 const RegisterView: React.FC<FormikProps<FormValues> & Props> = (props) => {
