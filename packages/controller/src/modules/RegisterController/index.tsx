@@ -1,8 +1,12 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useMutation, gql } from "@apollo/client";
+import {
+  RegisterMutationVariables,
+  RegisterMutation,
+} from "./__generated__/RegisterMutation";
 
 const REGISTER_MUTATION = gql`
-  mutation($email: String!, $password: String!) {
+  mutation RegisterMutation($email: String!, $password: String!) {
     register(email: $email, password: $password) {
       path
       message
@@ -12,16 +16,21 @@ const REGISTER_MUTATION = gql`
 
 interface Props {
   children: (data: {
-    submit: (values: any) => Promise<null>;
+    submit: (values: RegisterMutationVariables) => Promise<null>;
   }) => JSX.Element | null;
 }
 
 export const RegisterController: React.FC<Props> = ({ children }) => {
-  const [registerMutation] = useMutation(REGISTER_MUTATION);
+  const [registerMutation] = useMutation<RegisterMutation>(REGISTER_MUTATION);
 
-  const submit = async (values: any) => {
-    const res = await registerMutation({ variables: values });
-    console.log(res);
+  const submit = async ({ email, password }: RegisterMutationVariables) => {
+    const response = await registerMutation({
+      variables: {
+        email,
+        password,
+      },
+    });
+    console.log("response", response);
     return null;
   };
 
