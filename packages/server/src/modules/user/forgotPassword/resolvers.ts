@@ -19,11 +19,7 @@ const schema = yup.object().shape({
 
 export const resolvers: ResolverMap = {
   Mutation: {
-    sendForgotPasswordEmail: async (
-      _,
-      { email }: GQL.ISendForgotPasswordEmailOnMutationArguments,
-      { redis }
-    ) => {
+    sendForgotPasswordEmail: async (_, { email }: any, { redis }) => {
       const user = await User.findOne({ where: { email } });
       if (!user) {
         return [
@@ -40,11 +36,7 @@ export const resolvers: ResolverMap = {
       // @todo send email with url
       return true;
     },
-    forgotPasswordChange: async (
-      _,
-      { newPassword, key }: GQL.IForgotPasswordChangeOnMutationArguments,
-      { redis }
-    ) => {
+    forgotPasswordChange: async (_, { newPassword, key }: any, { redis }) => {
       const redisKey = `${forgotPasswordPrefix}${key}`;
 
       const userId = await redis.get(redisKey);

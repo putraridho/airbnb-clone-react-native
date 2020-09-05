@@ -10,7 +10,7 @@ export const resolvers: ResolverMap = {
   Mutation: {
     register: async (
       _,
-      args: GQL.IRegisterOnMutationArguments,
+      args: any,
       { redis, url }
     ) => {
       try {

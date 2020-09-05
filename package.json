@@ -1,8 +1,19 @@
 {
   "private": true,
+  "scripts": {
+    "build:server": "lerna run build --scope={@airbnb-clone/common,@airbnb-clone/server}"
+  },
   "workspaces": {
     "packages": [
       "packages/*"
+    ],
+    "nohoist": [
+      "**/@types/express-rate-limit",
+      "**/@types/express-rate-limit/*"
     ]
+  },
+  "name": "airbnb-clone-react-native",
+  "devDependencies": {
+    "lerna": "^3.22.1"
   }
 }
