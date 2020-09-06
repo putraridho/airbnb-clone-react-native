@@ -1,27 +1,36 @@
 {
   "name": "@airbnb-clone/app",
-  "version": "1.0.0",
-  "main": "node_modules/expo/AppEntry.js",
+  "version": "0.1.0",
+  "private": true,
+  "main": "__generated__/AppEntry.js",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
+    "postinstall": "expo-yarn-workspaces postinstall",
     "eject": "expo eject"
   },
   "dependencies": {
+    "@apollo/client": "^3.1.4",
     "expo": "~38.0.10",
     "expo-status-bar": "^1.0.2",
+    "graphql": "^15.3.0",
     "react": "~16.13.1",
     "react-dom": "~16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-38.0.2.tar.gz",
-    "react-native-web": "~0.13.9"
+    "react-native-elements": "^2.3.2",
+    "react-native-web": "~0.13.9",
+    "react-router-native": "^5.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.11.6",
+    "@expo/metro-config": "^0.1.24",
     "@types/react": "~16.9.49",
     "@types/react-native": "~0.63.15",
+    "@types/react-native-elements": "^0.18.0",
+    "@types/react-router-native": "^5.1.0",
+    "expo-yarn-workspaces": "^1.2.1",
     "typescript": "~4.0.2"
-  },
-  "private": true
+  }
 }
