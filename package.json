@@ -14,7 +14,15 @@
       "**/jest",
       "**/jest/*",
       "**/@types/jest",
-      "**/@types/jest/*"
+      "**/@types/jest/*",
+      "**/react-native",
+      "**/react-native/**",
+      "**/expo",
+      "**/expo/**",
+      "**/react-native-typescript-transformer",
+      "**/react-native-typescript-transformer/**",
+      "**/metro-bundler-config-yarn-wrokspaces",
+      "**/metro-bundler-config-yarn-wrokspaces/**"
     ]
   },
   "name": "airbnb-clone-react-native",

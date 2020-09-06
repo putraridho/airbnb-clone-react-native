@@ -1,0 +1,29 @@
+{
+  "expo": {
+    "name": "ts-app",
+    "description": "This project is really great.",
+    "slug": "ts-app",
+    "version": "1.0.0",
+    "privacy": "public",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "packagerOpts": {
+      "sourceExts": ["ts", "tsx"]
+    }
+  }
+}
