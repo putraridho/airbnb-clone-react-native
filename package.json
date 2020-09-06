@@ -1,7 +1,8 @@
 {
   "private": true,
   "scripts": {
-    "build:server": "lerna run build --scope={@airbnb-clone/common,@airbnb-clone/server}"
+    "build:server": "lerna run build --scope={@airbnb-clone/common,@airbnb-clone/server}",
+    "build:web": "lerna run build --scope={@airbnb-clone/common,@airbnb-clone/controller,@airbnb-clone/web}"
   },
   "workspaces": {
     "packages": [
@@ -9,7 +10,11 @@
     ],
     "nohoist": [
       "**/@types/express-rate-limit",
-      "**/@types/express-rate-limit/*"
+      "**/@types/express-rate-limit/*",
+      "**/jest",
+      "**/jest/*",
+      "**/@types/jest",
+      "**/@types/jest/*"
     ]
   },
   "name": "airbnb-clone-react-native",

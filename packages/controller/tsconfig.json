@@ -16,7 +16,7 @@
     "strict": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "types": ["jest", "node", "react", "react-dom", "react-router-dom"],
+    "types": ["node", "react", "react-dom", "react-router-dom"],
     "skipLibCheck": true,
     "declaration": true
   },

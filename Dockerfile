@@ -14,7 +14,7 @@ COPY ./packages/common/dist ./packages/common/dist
 COPY ./packages/server/.env.prod ./packages/server/.env
 COPY ./ormconfig.json .
 
-WORKDIR ./packages/server
+WORKDIR $HOME/packages/server
 
 ENV NODE_ENV production
 
