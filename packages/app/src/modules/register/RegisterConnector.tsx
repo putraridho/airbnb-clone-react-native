@@ -1,12 +1,15 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
-import { Button } from "react-native-elements";
+import RegisterView from "./ui/RegisterView";
 
 export default function RegisterConnector() {
-  const onPress = () => console.log("hello");
+  const dummySubmit = async (values: any) => {
+    console.log(values);
+    return null;
+  };
   return (
     <View style={styles.container}>
-      <Button title="BUTTON" onPress={onPress} />
+      <RegisterView submit={dummySubmit} />
     </View>
   );
 }
