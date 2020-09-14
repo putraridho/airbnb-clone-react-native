@@ -4,6 +4,7 @@ import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { withFormik, FormikErrors, FormikProps, Field, Form } from "formik";
 import { validUserSchema } from "@airbnb-clone/common";
 import InputField from "../../shared/InputField";
+import { Link } from "react-router-dom";
 
 const { Item: FormItem } = AntForm;
 
@@ -16,7 +17,7 @@ interface Props {
   submit: (values: FormValues) => Promise<FormikErrors<FormValues> | null>;
 }
 
-const RegisterView: React.FC<FormikProps<FormValues> & Props> = (props) => {
+const RegisterView: React.FC<FormikProps<FormValues> & Props> = () => {
   return (
     <Form>
       <div
@@ -60,15 +61,7 @@ const RegisterView: React.FC<FormikProps<FormValues> & Props> = (props) => {
           >
             Register
           </Button>
-          Or{" "}
-          <a
-            href="https://google.com"
-            style={{
-              marginLeft: 5,
-            }}
-          >
-            log in now!
-          </a>
+          Or <Link to="/login">login now!</Link>
         </FormItem>
       </div>
     </Form>
