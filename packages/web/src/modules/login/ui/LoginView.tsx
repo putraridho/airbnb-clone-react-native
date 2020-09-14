@@ -1,8 +1,8 @@
 import React from "react";
 import { Form as AntForm, Button } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
-import { withFormik, FormikErrors, FormikProps, Field, Form } from "formik";
-import { validUserSchema } from "@airbnb-clone/common";
+import { withFormik, FormikProps, Field, Form } from "formik";
+import { loginSchema } from "@airbnb-clone/common";
 import InputField from "../../shared/InputField";
 import { Link } from "react-router-dom";
 
@@ -14,10 +14,14 @@ interface FormValues {
 }
 
 interface Props {
-  submit: (values: FormValues) => Promise<FormikErrors<FormValues> | null>;
+  submit: (
+    values: FormValues
+  ) => Promise<{
+    [key: string]: string;
+  } | null>;
 }
 
-const RegisterView: React.FC<FormikProps<FormValues> & Props> = () => {
+const LoginView: React.FC<FormikProps<FormValues> & Props> = () => {
   return (
     <Form>
       <div
@@ -59,9 +63,17 @@ const RegisterView: React.FC<FormikProps<FormValues> & Props> = () => {
               marginRight: 10,
             }}
           >
-            Register
+            Login
           </Button>
-          Or <Link to="/login">login now!</Link>
+          Or{" "}
+          <a
+            href="https://google.com"
+            style={{
+              marginLeft: 5,
+            }}
+          >
+            <Link to="/register">Register</Link>
+          </a>
         </FormItem>
       </div>
     </Form>
@@ -69,7 +81,9 @@ const RegisterView: React.FC<FormikProps<FormValues> & Props> = () => {
 };
 
 export default withFormik<Props, FormValues>({
-  validationSchema: validUserSchema,
+  validationSchema: loginSchema,
+  validateOnBlur: false,
+  validateOnChange: false,
   mapPropsToValues: () => ({
     email: "",
     password: "",
@@ -80,4 +94,4 @@ export default withFormik<Props, FormValues>({
       setErrors(errors);
     }
   },
-})(RegisterView);
+})(LoginView);
