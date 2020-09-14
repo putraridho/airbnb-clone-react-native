@@ -1,9 +1,6 @@
 import React from "react";
 import { useMutation, gql } from "@apollo/client";
-import {
-  RegisterMutationVariables,
-  RegisterMutation,
-} from "./__generated__/RegisterMutation";
+import { RegisterMutationVariables, RegisterMutation } from "../../schemaTypes";
 
 const REGISTER_MUTATION = gql`
   mutation RegisterMutation($email: String!, $password: String!) {

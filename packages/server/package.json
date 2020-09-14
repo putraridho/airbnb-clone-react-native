@@ -67,8 +67,9 @@
     "gen-schema-types": "ts-node src/scripts/createTypes.ts"
   },
   "jest": {
+    "rootDir": "./src",
     "testURL": "http://localhost/",
-    "globalSetup": "./src/testUtils/callSetup.js",
+    "globalSetup": "./testUtils/callSetup.js",
     "transform": {
       "^.+\\.tsx?$": "ts-jest"
     },

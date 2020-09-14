@@ -1,14 +1,11 @@
 import React from "react";
-import * as Antd from "antd";
+import { Form as AntForm, Button } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { withFormik, FormikErrors, FormikProps, Field, Form } from "formik";
 import { validUserSchema } from "@airbnb-clone/common";
 import InputField from "../../shared/InputField";
 
-const {
-  Form: { Item: FormItem },
-  Button,
-} = Antd;
+const { Item: FormItem } = AntForm;
 
 interface FormValues {
   email: string;
