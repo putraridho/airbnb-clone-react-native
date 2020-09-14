@@ -11,8 +11,6 @@
     "nohoist": [
       "**/@types/express-rate-limit",
       "**/@types/express-rate-limit/*",
-      "**/graphql",
-      "**/graphql/*",
       "**/jest",
       "**/jest/*",
       "**/@types/jest",

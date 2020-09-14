@@ -1,23 +1,11 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { RegisterController } from "@airbnb-clone/controller";
 import RegisterView from "./ui/RegisterView";
 
 export default function RegisterConnector() {
-  const dummySubmit = async (values: any) => {
-    console.log(values);
-    return null;
-  };
   return (
-    <View style={styles.container}>
-      <RegisterView submit={dummySubmit} />
-    </View>
+    <RegisterController>
+      {({ submit }) => <RegisterView submit={submit} />}
+    </RegisterController>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
