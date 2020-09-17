@@ -3,8 +3,8 @@ import { User } from "../../../entity/User";
 import { formatYupError } from "../../../utils/formatYupError";
 import { duplicateEmail } from "./errorMessages";
 import { validUserSchema } from "@airbnb-clone/common";
-// import { createConfirmEmailLink } from "./createConfirmEmailLink";
-// import { sendEmail } from "../../../utils/sendEmail";
+import { createConfirmEmailLink } from "./createConfirmEmailLink";
+import { sendEmail } from "../../../utils/sendEmail";
 
 export const resolvers: ResolverMap = {
   Mutation: {
@@ -12,7 +12,7 @@ export const resolvers: ResolverMap = {
       _,
       args: any,
       {
-        // redis, url
+        redis, url
       }
     ) => {
       try {
@@ -40,17 +40,16 @@ export const resolvers: ResolverMap = {
       const user = User.create({
         email,
         password,
-        confirmed: true,
       });
 
       await user.save();
 
-      // if (process.env.NODE_ENV !== "test") {
-      //   await sendEmail(
-      //     email,
-      //     await createConfirmEmailLink(url, user.id, redis)
-      //   );
-      // }
+      if (process.env.NODE_ENV !== "test") {
+        await sendEmail(
+          email,
+          await createConfirmEmailLink(url, user.id, redis)
+        );
+      }
 
       return null;
     },
