@@ -8,13 +8,7 @@ import { sendEmail } from "../../../utils/sendEmail";
 
 export const resolvers: ResolverMap = {
   Mutation: {
-    register: async (
-      _,
-      args: any,
-      {
-        redis, url
-      }
-    ) => {
+    register: async (_, args: any, { redis, url }) => {
       try {
         await validUserSchema.validate(args, { abortEarly: false });
       } catch (err) {
@@ -47,7 +41,8 @@ export const resolvers: ResolverMap = {
       if (process.env.NODE_ENV !== "test") {
         await sendEmail(
           email,
-          await createConfirmEmailLink(url, user.id, redis)
+          await createConfirmEmailLink(url, user.id, redis),
+          "confirm email"
         );
       }
 
