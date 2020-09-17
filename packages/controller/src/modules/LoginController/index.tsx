@@ -46,8 +46,9 @@ export const LoginController: React.FC<Props> = ({ children, onSessionId }) => {
         return normalizeErrors(errors);
       }
 
+      console.log("sessionId:", sessionId);
+
       if (sessionId && onSessionId) {
-        console.log("sessionId:", sessionId);
         onSessionId(sessionId);
       }
     }
