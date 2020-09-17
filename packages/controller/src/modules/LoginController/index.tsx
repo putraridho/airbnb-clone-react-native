@@ -2,6 +2,7 @@ import React from "react";
 import { useMutation, gql } from "@apollo/client";
 import { LoginMutationVariables, LoginMutation } from "../../schemaTypes";
 import { normalizeErrors } from "../../utils/normalizeErrors";
+import { NormalizeErrorMap } from "types/NormalizeErrorMap";
 
 const LOGIN_MUTATION = gql`
   mutation LoginMutation($email: String!, $password: String!) {
@@ -20,9 +21,7 @@ interface Props {
   children: (data: {
     submit: (
       values: LoginMutationVariables
-    ) => Promise<{
-      [key: string]: string;
-    } | null>;
+    ) => Promise<NormalizeErrorMap | null>;
   }) => JSX.Element | null;
 }
 
@@ -41,12 +40,12 @@ export const LoginController: React.FC<Props> = ({ children, onSessionId }) => {
       const {
         login: { errors, sessionId },
       } = data;
-      
+
       if (errors) {
         console.log("errors:", errors);
         return normalizeErrors(errors);
       }
-      
+
       if (sessionId && onSessionId) {
         console.log("sessionId:", sessionId);
         onSessionId(sessionId);

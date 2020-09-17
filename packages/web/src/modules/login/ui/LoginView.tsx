@@ -5,6 +5,7 @@ import { withFormik, FormikProps, Field, Form } from "formik";
 import { loginSchema } from "@airbnb-clone/common";
 import InputField from "../../shared/InputField";
 import { Link } from "react-router-dom";
+import { NormalizeErrorMap } from "@airbnb-clone/controller/src";
 
 const { Item: FormItem } = AntForm;
 
@@ -14,11 +15,7 @@ interface FormValues {
 }
 
 interface Props {
-  submit: (
-    values: FormValues
-  ) => Promise<{
-    [key: string]: string;
-  } | null>;
+  submit: (values: FormValues) => Promise<NormalizeErrorMap | null>;
 }
 
 const LoginView: React.FC<FormikProps<FormValues> & Props> = () => {
@@ -48,7 +45,7 @@ const LoginView: React.FC<FormikProps<FormValues> & Props> = () => {
           component={InputField}
         />
         <FormItem>
-          <a href="https://google.com">Forgot password</a>
+          <Link to="/forgot-password">Forgot password</Link>
         </FormItem>
 
         <FormItem
@@ -66,14 +63,14 @@ const LoginView: React.FC<FormikProps<FormValues> & Props> = () => {
             Login
           </Button>
           Or{" "}
-          <a
-            href="https://google.com"
+          <Link
+            to="/register"
             style={{
               marginLeft: 5,
             }}
           >
-            <Link to="/register">Register</Link>
-          </a>
+            Register
+          </Link>
         </FormItem>
       </div>
     </Form>
