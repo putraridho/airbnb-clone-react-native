@@ -7,13 +7,17 @@ export default function ChangePasswordConnector({
   match: {
     params: { key },
   },
+  history,
 }: RouteComponentProps<{ key: string }>): React.ReactElement {
+  const onFinish = () => {
+    history.push("/login");
+    return null;
+  };
+
   return (
     <ChangePasswordController>
       {({ submit }) => (
-        <ChangePasswordView
-          submit={({ newPassword }) => submit({ newPassword, key })}
-        />
+        <ChangePasswordView token={key} onFinish={onFinish} submit={submit} />
       )}
     </ChangePasswordController>
   );

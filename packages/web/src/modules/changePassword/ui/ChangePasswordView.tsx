@@ -3,7 +3,10 @@ import { Form as AntForm, Button } from "antd";
 import { LockOutlined } from "@ant-design/icons";
 import { withFormik, FormikProps, Field, Form } from "formik";
 import InputField from "../../shared/InputField";
-import { NormalizeErrorMap } from "@airbnb-clone/controller/src";
+import {
+  NormalizeErrorMap,
+  ForgotPasswordChangeMutationVariables,
+} from "@airbnb-clone/controller";
 import { changePasswordSchema } from "@airbnb-clone/common";
 
 const { Item: FormItem } = AntForm;
@@ -13,7 +16,11 @@ interface FormValues {
 }
 
 interface Props {
-  submit: (values: FormValues) => Promise<NormalizeErrorMap | null>;
+  onFinish: () => void;
+  token: string;
+  submit: (
+    values: ForgotPasswordChangeMutationVariables
+  ) => Promise<NormalizeErrorMap | null>;
 }
 
 const ChangePasswordView: React.FC<FormikProps<FormValues> & Props> = () => {
@@ -56,10 +63,15 @@ export default withFormik<Props, FormValues>({
   mapPropsToValues: () => ({
     newPassword: "",
   }),
-  handleSubmit: async (values, { props: { submit }, setErrors }) => {
-    const errors = await submit(values);
+  handleSubmit: async (
+    { newPassword },
+    { props: { submit, token: key, onFinish }, setErrors }
+  ) => {
+    const errors = await submit({ newPassword, key });
     if (errors) {
       setErrors(errors);
+    } else {
+      onFinish();
     }
   },
 })(ChangePasswordView);
