@@ -1,7 +1,8 @@
-import React, { useMemo, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { RouteComponentProps } from "react-router-dom";
-import { Form as AntForm, Button } from "antd";
-import { Formik, Form, Field } from "formik";
+import AntForm from "antd/lib/form";
+import Button from "antd/lib/button";
+import { Formik, Form } from "formik";
 import Page1 from "./ui/Page1";
 import Page2 from "./ui/Page2";
 import Page3 from "./ui/Page3";
@@ -25,9 +26,9 @@ export default function CreateListingConnector(props: RouteComponentProps<{}>) {
 
   const pages = useMemo(() => [<Page1 />, <Page2 />, <Page3 />], []);
 
-  const submit = (values: any) => {
+  const submit = useCallback((values: any) => {
     console.log("values:", values);
-  };
+  }, []);
 
   const prevPage = () => setPage(page - 1);
 
@@ -66,26 +67,33 @@ export default function CreateListingConnector(props: RouteComponentProps<{}>) {
                 marginBottom: 0,
               }}
             >
-              {page > 0 && (
-                <Button
-                  type="primary"
-                  onClick={prevPage}
-                  style={{
-                    marginRight: 10,
-                  }}
-                >
-                  Previous Page
-                </Button>
-              )}
-              {page === pages.length - 1 ? (
-                <Button type="primary" htmlType="submit">
-                  Create Listing
-                </Button>
-              ) : (
-                <Button type="primary" onClick={nextPage}>
-                  Next Page
-                </Button>
-              )}
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "flex-end",
+                }}
+              >
+                {page > 0 && (
+                  <Button
+                    type="primary"
+                    onClick={prevPage}
+                    style={{
+                      marginRight: 10,
+                    }}
+                  >
+                    Previous Page
+                  </Button>
+                )}
+                {page === pages.length - 1 ? (
+                  <Button type="primary" htmlType="submit">
+                    Create Listing
+                  </Button>
+                ) : (
+                  <Button type="primary" onClick={nextPage}>
+                    Next Page
+                  </Button>
+                )}
+              </div>
             </FormItem>
           </div>
         </Form>
