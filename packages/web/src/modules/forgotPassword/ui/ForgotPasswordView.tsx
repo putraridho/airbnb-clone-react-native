@@ -3,7 +3,7 @@ import { Form as AntForm, Button } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { withFormik, FormikProps, Field, Form } from "formik";
 import InputField from "../../shared/InputField";
-import { NormalizeErrorMap } from "@airbnb-clone/controller/src";
+import { NormalizeErrorMap } from "@airbnb-clone/controller";
 
 const { Item: FormItem } = AntForm;
 
